@@ -39,16 +39,12 @@ bool Screen::init()
 	if (m_texture == NULL) { SDL_DestroyRenderer(m_renderer); SDL_DestroyWindow(m_window); SDL_Quit(); return false; }
 
 	// allocate memory for the screen; each pixel requires 32 bits with SDL_PIXELFORMAT_RGBA8888 in texture; Uint32 is defined by SDL
-	Uint32 *m_buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
+	m_buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
 
 	// set memory
 	memset(m_buffer, 0x00, SCREEN_WIDTH*SCREEN_HEIGHT * sizeof(Uint32));
 
-	// copy pixels to a buffer, clear renderer (why not do this first?),  pass buffer to renderer, present renderer on screen
-	SDL_UpdateTexture(m_texture, NULL, m_buffer, SCREEN_WIDTH * sizeof(Uint32));
-	SDL_RenderClear(m_renderer);
-	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
-	SDL_RenderPresent(m_renderer);
+
 
 	return true;
 }
@@ -67,6 +63,15 @@ bool Screen::processEvent()
 	return true;
 }
 
+// copy pixels to a buffer, clear renderer (why not do this first?),  pass buffer to renderer, present renderer on screen
+void Screen::update()
+{
+	SDL_UpdateTexture(m_texture, NULL, m_buffer, SCREEN_WIDTH * sizeof(Uint32));
+	SDL_RenderClear(m_renderer);
+	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
+	SDL_RenderPresent(m_renderer);
+}
+
 void Screen::close()
 {
 	delete[] m_buffer;
@@ -74,4 +79,20 @@ void Screen::close()
 	SDL_DestroyTexture(m_texture);
 	SDL_DestroyWindow(m_window);
 	SDL_Quit(); // quit SDL
+}
+
+void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
+{
+	// R G B Alpha
+	Uint32 colour = 0;
+
+	colour += red;
+	colour <<= 8;
+	colour += green;
+	colour <<= 8;
+	colour += blue;
+	colour <<= 8;
+	colour += 0xFF;
+
+	m_buffer[(y*SCREEN_WIDTH) + x] = colour;
 }

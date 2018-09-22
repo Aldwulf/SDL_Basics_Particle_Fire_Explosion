@@ -20,8 +20,13 @@ int main(int argc, char **argv)
 	{
 		// update particles
 		// draw particles
+
+		screen.setPixel(400, 300, 255, 255, 255);
+
+		// draw screen
+		screen.update();
+
 		// check for events/messages
-		
 		if (screen.processEvent() == false)
 		{
 			break;
