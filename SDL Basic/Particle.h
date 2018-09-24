@@ -6,8 +6,8 @@ struct Particle
 	const double SPEEDCONSTANT = 0.01;
 	double m_x;
 	double m_y;
-	//double m_xspeed;
-	//double m_yspeed;
+	double m_xspeed;
+	double m_yspeed;
 
 public:
 	Particle();
