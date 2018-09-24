@@ -13,6 +13,7 @@ Swarm::~Swarm()
 	delete[] m_pParticles;
 }
 
+// Call Particle::update() on each particle
 void Swarm::update()
 {
 	for (int i = 0; i < Swarm::NPARTICLES; i++)

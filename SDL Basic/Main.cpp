@@ -33,31 +33,24 @@ int main(int argc, char **argv)
 		screen.clear();
 		swarm.update();
 
+		// generating colours
 		unsigned char red = (1 + sin(elapsed * 0.001)) * 128;
 		unsigned char green = (1 + sin(elapsed * 0.002)) * 128;
 		unsigned char blue = (1 + sin(elapsed * 0.003)) * 128;
 
-		const Particle * const pParticles = swarm.getParticles();
+		const Particle * const pParticles = swarm.getParticles(); // pointer to m_pParticles which is the array of particles
 
+		// for each particle set their starting position and their colour for this frame
 		for (int i = 0; i < Swarm::NPARTICLES; i++)
 		{
 			Particle particle = pParticles[i];
 
+			// set starting position
 			int x = (particle.m_x + 1) * screen.SCREEN_WIDTH / 2;
 			int y = particle.m_y * screen.SCREEN_WIDTH / 2 + screen.SCREEN_HEIGHT/2;
 
 			screen.setPixel(x, y, red, green, blue);
 		}
-
-
-		/*for (int y = 0; y < screen.SCREEN_HEIGHT; y++)
-		{
-			for (int x = 0; x < screen.SCREEN_WIDTH; x++)
-			{
-				screen.setPixel(x, y, red, green, blue);
-			}
-		}*/
-		//.setPixel(400, 300, 255, 255, 255);
 
 		// draw screen
 		screen.update();
