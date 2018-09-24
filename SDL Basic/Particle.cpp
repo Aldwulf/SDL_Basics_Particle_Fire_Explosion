@@ -1,14 +1,16 @@
+#define _USE_MATH_DEFINES
+
 #include "Particle.h"
 #include <stdlib.h>
+//#include <cmath>
+#include <math.h>
 
+using namespace std;
 
-Particle::Particle()
+Particle::Particle() : m_x(0), m_y(0)
 {
-	m_x = ((2.0 * rand()) / RAND_MAX) - 1;
-	m_y = ((2.0 * rand()) / RAND_MAX) - 1;
-
-	m_xspeed = SPEEDCONSTANT * (((2.0 * rand()) / RAND_MAX) - 1);
-	m_yspeed = SPEEDCONSTANT * (((2.0 * rand()) / RAND_MAX) - 1);
+	m_direction = (2 * M_PI * rand()) / RAND_MAX;
+	m_speed = (SPEEDCONSTANT * rand()) / RAND_MAX;
 }
 
 
@@ -18,17 +20,9 @@ Particle::~Particle()
 
 void Particle::update()
 {
-	m_x += m_xspeed;
-	m_y += m_yspeed;
+	double xspeed = m_speed * cos(m_direction);
+	double yspeed = m_speed * sin(m_direction);
 
-	if (m_x < -1.0 || m_x >= 1.0)
-	{
-		m_xspeed = -m_xspeed;
-	}
-
-	if (m_y < -1.0 || m_y >= 1.0)
-	{
-		m_yspeed = -m_yspeed;
-	}
-
+	m_x += xspeed;
+	m_y += yspeed;
 }
