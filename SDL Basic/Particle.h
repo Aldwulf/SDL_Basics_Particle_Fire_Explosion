@@ -3,7 +3,7 @@
 /// member variable in a struct are public by default
 struct Particle
 {
-	const double SPEEDCONSTANT = 0.01;
+	const double SPEEDCONSTANT = 0.001;
 	double m_x;
 	double m_y;
 	
@@ -14,6 +14,6 @@ public:
 	Particle();
 	~Particle();
 
-	void update();
+	void update(int interval);
 };
 

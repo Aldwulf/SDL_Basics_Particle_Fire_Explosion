@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 
 		int elapsed = SDL_GetTicks();
 		screen.clear();
-		swarm.update();
+		swarm.update(elapsed);
 
 		// generating colours
 		unsigned char red = (1 + sin(elapsed * 0.001)) * 128;
