@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 		// draw particles
 
 		int elapsed = SDL_GetTicks();
-		screen.clear();
+		//screen.clear();
 		swarm.update(elapsed);
 
 		// generating colours
@@ -51,6 +51,8 @@ int main(int argc, char **argv)
 
 			screen.setPixel(x, y, red, green, blue);
 		}
+
+		screen.boxBlur();
 
 		// draw screen
 		screen.update();
